@@ -4,7 +4,7 @@
 
 A two-page website for **Maison Noir**, a fictional Paris fashion house, showing its Autumn–Winter 2026 collection, *Nocturne*. The art direction is couture editorial: high-contrast Bodoni display type, ink and ivory canvases, and a signature "bloom" gradient that runs from deep wine through bordeaux and rose to apricot and champagne. The gradient washes over photography, fills headlines and buttons, and drifts behind dark sections as a soft aurora.
 
-**Live site:** _pending deployment_
+**Live site:** <https://fashion-brand-gold.vercel.app>
 
 ![Maison Noir — home page](docs/screenshots/home-desktop.jpg)
 
