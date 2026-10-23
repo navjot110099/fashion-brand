@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0e0a0d;
+  --color-noir: #160f17;
+  --color-plum: #2a1226;
+  --color-wine: #5c1027;
+  --color-bordeaux: #7d1d38;
+  --color-rose: #c2707a;
+  --color-apricot: #e3a07c;
+  --color-champagne: #f1d6bc;
+  --color-ivory: #f7f1ea;
+  --color-ivory-2: #efe4d8;
+  --color-smoke: #6d6067;
+
+  --ease-couture: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-glide: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-drift-a: drift-a 22s ease-in-out infinite alternate;
+  --animate-drift-b: drift-b 28s ease-in-out infinite alternate;
+  --animate-drift-c: drift-c 34s ease-in-out infinite alternate;
+  --animate-sheen: sheen 8s ease-in-out infinite;
+  --animate-marquee: marquee 50s linear infinite;
+
+  @keyframes drift-a {
+    from { transform: translate3d(-8%, -6%, 0) scale(1); }
+    to { transform: translate3d(12%, 10%, 0) scale(1.25); }
+  }
+  @keyframes drift-b {
+    from { transform: translate3d(10%, 8%, 0) scale(1.15); }
+    to { transform: translate3d(-12%, -6%, 0) scale(0.9); }
+  }
+  @keyframes drift-c {
+    from { transform: translate3d(0, 12%, 0) scale(0.9); }
+    to { transform: translate3d(-6%, -14%, 0) scale(1.2); }
+  }
+  @keyframes sheen {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+}
+
+@theme inline {
+  --font-display: var(--font-bodoni), "Didot", "Bodoni 72", serif;
+  --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  /* The house gradient: night wine through rose and apricot to champagne. */
+  --grad-bloom: linear-gradient(115deg, #2b0a19 0%, #6e1630 28%, #b0445a 52%, #e39a78 78%, #f2d3b6 100%);
+  --grad-text: linear-gradient(100deg, #f2d3b6 0%, #e39a78 30%, #c2566a 62%, #8a2140 100%);
+  --grad-text-dark: linear-gradient(100deg, #7d1d38 0%, #b0445a 40%, #d77a68 75%, #e3a07c 100%);
+  --grad-blush: radial-gradient(ellipse at 15% 0%, rgb(227 160 124 / 0.22), transparent 55%),
+    radial-gradient(ellipse at 90% 30%, rgb(194 112 122 / 0.18), transparent 50%),
+    linear-gradient(180deg, #f7f1ea, #f3e6da);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    background: var(--color-ivory);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-weight: 380;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-bordeaux);
+    color: var(--color-ivory);
+  }
+  :focus-visible {
+    outline: 1.5px solid var(--color-bordeaux);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .label {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+  }
+  .bg-bloom {
+    background-image: var(--grad-bloom);
+  }
+  .bg-blush {
+    background: var(--grad-blush);
+  }
+  .text-gradient {
+    background-image: var(--grad-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .text-gradient-dark {
+    background-image: var(--grad-text-dark);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  /* Gradient-washed photography: the bloom gradient laid over images, receding on hover. */
+  .wash {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+  .wash::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background-image: var(--grad-bloom);
+    mix-blend-mode: soft-light;
+    opacity: 0.85;
+    transition: opacity 1s var(--ease-glide);
+  }
+  .wash-tint::after {
+    mix-blend-mode: color;
+    opacity: 0.55;
+  }
+  .group:hover .wash::after,
+  .wash:hover::after {
+    opacity: 0.3;
+  }
+  .hairline-grad {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #c2566a 30%, #e39a78 70%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
